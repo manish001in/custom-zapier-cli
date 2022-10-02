@@ -3,13 +3,14 @@ from __future__ import unicode_literals
 from django.contrib.auth.models import User
 from django.db import models
 from django.contrib.postgres.fields import JSONField
-import datetime
+
 
 # Model user profile, mapped to User, can store additional values for users
 class UserProfile(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     created_date = models.DateTimeField(auto_now_add=True, null=True)
     modified_date = models.DateTimeField(auto_now=True, null=True)
+
 
 class Apps(models.Model):
     name = models.CharField(max_length=200, unique=True)
@@ -18,6 +19,7 @@ class Apps(models.Model):
     extra_data = models.TextField()
     created_date = models.DateTimeField(auto_now_add=True, null=True)
     modified_date = models.DateTimeField(auto_now=True, null=True)
+
 
 class Triggers(models.Model):
     app = models.ForeignKey(Apps, on_delete=models.CASCADE)
@@ -30,6 +32,7 @@ class Triggers(models.Model):
     class Meta:
         unique_together = ("app", "name")
 
+
 class Actions(models.Model):
     app = models.ForeignKey(Apps, on_delete=models.CASCADE)
     name = models.CharField(max_length=200)
@@ -40,6 +43,7 @@ class Actions(models.Model):
 
     class Meta:
         unique_together = ("app", "name")
+
 
 class Zaps(models.Model):
     user_profile = models.ForeignKey(UserProfile, on_delete=models.CASCADE)

@@ -1,12 +1,13 @@
 from oauth2client import client
 import threading
 
+
 class Storage(client.Storage):
     """Store and retrieve a single credential to and from Django DB.
-       Need to provide json credential string as init.
+    Need to provide json credential string as init.
     """
 
-    def __init__(self, json_cred_string=''):
+    def __init__(self, json_cred_string=""):
         super(Storage, self).__init__(lock=threading.Lock())
         self._cred = json_cred_string
 
@@ -42,4 +43,3 @@ class Storage(client.Storage):
         Raises:
         """
         return credentials.to_json()
-
